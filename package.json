@@ -1,0 +1,16 @@
+{
+  "name": "cssobj-plugin-post-gencss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cjs/cssobj-plugin-post-gencss.js",
+  "scripts": {
+    "iife": "mkdir -p iife && rollup -f iife -n cssobj_plugin_post_gencss src/cssobj-plugin-post-gencss.js -o iife/cssobj-plugin-post-gencss.js && uglifyjs iife/cssobj-plugin-post-gencss.js -cm -o iife/cssobj-plugin-post-gencss.min.js",
+    "amd": "mkdir -p amd && rollup -f amd -u cssobj_plugin_post_gencss src/cssobj-plugin-post-gencss.js -o amd/cssobj-plugin-post-gencss.js",
+    "cjs": "mkdir -p cjs && rollup -f cjs src/cssobj-plugin-post-gencss.js -o cjs/cssobj-plugin-post-gencss.js",
+    "es": "mkdir -p es && rollup -f es src/cssobj-plugin-post-gencss.js -o es/cssobj-plugin-post-gencss.js",
+    "make": "npm run iife && npm run cjs && npm run amd && npm run es",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
