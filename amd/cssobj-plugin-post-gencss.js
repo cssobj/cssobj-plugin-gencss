@@ -1,5 +1,13 @@
 define('cssobj_plugin_post_gencss', function () { 'use strict';
 
+  // plugin for cssobj
+
+  function dashify(str) {
+    return str
+      .replace(/([A-Z])/g, function(m){return "-"+m.toLowerCase()})
+      .replace(/(^\s+|\s+$)/g, '')
+  }
+
   function cssobj_plugin_post_gencss (result) {
     var keys = Object.keys
     var str = []
@@ -22,8 +30,8 @@ define('cssobj_plugin_post_gencss', function () { 'use strict';
         for(var v, str='', i=prop[k].length; i--; ) {
           v = prop[k][i]
           str += k.charAt(0)=='@'
-            ? k+' '+v+';\n'
-            : k+': '+v+';\n'
+            ? dashify(k)+' '+v+';\n'
+            : dashify(k)+': '+v+';\n'
         }
         return str
       }).join('')
