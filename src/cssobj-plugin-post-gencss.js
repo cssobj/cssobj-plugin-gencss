@@ -12,7 +12,6 @@ export default function cssobj_plugin_post_gencss (option) {
 
   return function (result) {
     var newLine = option.newLine
-    var keys = Object.keys
     var str = []
     var walk = function(node) {
       if (!node) return ''
@@ -28,7 +27,7 @@ export default function cssobj_plugin_post_gencss (option) {
       var selText = node.selText
 
       // get cssText from prop
-      var cssText = keys(prop).map(function(k) {
+      var cssText = Object.keys(prop).map(function(k) {
         for(var v, str='', i=prop[k].length; i--; ) {
           v = prop[k][i]
           str += k.charAt(0)=='@'
