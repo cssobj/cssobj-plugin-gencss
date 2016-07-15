@@ -19,19 +19,18 @@ var cssobj_plugin_post_gencss = (function () {
       var str = []
       var walk = function(node) {
         if (!node) return ''
+
+        // cssobj generate vanilla Array, it's safe to use constructor, fast
         if (node.constructor === Array) return node.map(function (v) {walk(v)})
 
         var postArr = []
         var children = node.children
-        var isGroup = node.type=='group'||node.type=='keyframes'
-
-        if(isGroup) {
-          str.push(node.groupText+' {' + newLine)
-        }
+        var isGroup = node.type=='group'
 
         var prop = node.prop
         var selText = node.selText
 
+        // get cssText from prop
         var cssText = keys(prop).map(function(k) {
           for(var v, str='', i=prop[k].length; i--; ) {
             v = prop[k][i]
@@ -42,10 +41,14 @@ var cssobj_plugin_post_gencss = (function () {
           return str
         }).join('')
 
-        if(keys(prop).length) str.push( selText ? selText + ' {' + newLine + cssText +'}' + newLine : cssText )
+        if(isGroup) {
+          str.push(node.groupText+' {' + newLine)
+        }
 
-        for(var c in children){
-          if(c==='' || children[c].type=='group') postArr.push(c)
+        if (cssText) str.push( selText ? selText + ' {' + newLine + cssText +'}' + newLine : cssText )
+
+        for(var c in children) {
+          if(c==='' || children[c].at=='@media ') postArr.push(c)
           else walk(children[c])
         }
 
@@ -53,6 +56,7 @@ var cssobj_plugin_post_gencss = (function () {
           str.push('}' + newLine)
         }
 
+        // media rules need a stand alone block
         postArr.map(function(v) {
           walk(children[v])
         })
