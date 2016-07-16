@@ -32,7 +32,7 @@ define('cssobj_plugin_post_gencss', function () { 'use strict';
         var cssText = Object.keys(prop).map(function(k) {
           for(var v, str='', i=prop[k].length; i--; ) {
             v = prop[k][i]
-            str += k.charAt(0)=='@'
+            str += /^\s*@/.test(k)
               ? dashify(k)+' '+v+';' + newLine
               : dashify(k)+': '+v+';' + newLine
           }
