@@ -46,7 +46,7 @@ function cssobj_plugin_post_gencss (option) {
       if (cssText) str.push( selText ? selText + ' {' + newLine + cssText +'}' + newLine : cssText )
 
       for(var c in children) {
-        if(c==='' || children[c].at=='@media ') postArr.push(c)
+        if(c==='' || children[c].at=='media') postArr.push(c)
         else walk(children[c])
       }
 
