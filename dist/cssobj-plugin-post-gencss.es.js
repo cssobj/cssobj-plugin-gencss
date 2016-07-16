@@ -6,7 +6,7 @@ function dashify(str) {
     .replace(/(^\s+|\s+$)/g, '')
 }
 
-export default function cssobj_plugin_post_gencss (option) {
+function cssobj_plugin_post_gencss (option) {
 
   option = option || {newLine: '\n'}
 
@@ -64,3 +64,5 @@ export default function cssobj_plugin_post_gencss (option) {
   }
 
 }
+
+export default cssobj_plugin_post_gencss;
