@@ -26,6 +26,10 @@ function cssobj_plugin_post_gencss (option) {
     newLine: '\n'
   })
 
+  var initIndent = option.initIndent
+  var newLine = option.newLine
+  var indentStr = option.indent
+
   return function (result) {
     var str = []
     var walk = function(node, indent) {
@@ -69,7 +73,7 @@ function cssobj_plugin_post_gencss (option) {
         str.push(indent + groupText+' {' + newLine)
       }
 
-      if (cssText) str.push(indent2+ (selText ? selText + ' {' + newLine + cssText + indent2 + '}' + newLine : cssText ))
+      if (cssText) str.push(selText ? indent2 + selText + ' {' + newLine + cssText + indent2 + '}' + newLine : cssText )
 
       for(var c in children) {
         if(c==='' || children[c].at=='media') postArr.push(c)
