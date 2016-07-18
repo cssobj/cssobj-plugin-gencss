@@ -1,18 +1,31 @@
 var cssobj_plugin_post_gencss = (function () {
   'use strict';
 
-  // plugin for cssobj
+  // helper functions for cssobj
 
+  // set default option (not deeply)
+  function defaults(options, defaultOption) {
+    options = options || {}
+    for (var i in defaultOption) {
+      if (!(i in options)) options[i] = defaultOption[i]
+    }
+    return options
+  }
+
+  // convert js prop into css prop (dashified)
   function dashify(str) {
-    return str
-      .replace(/([A-Z])/g, function(m){return "-"+m.toLowerCase()})
-      .replace(/(^\s+|\s+$)/g, '')
+    return str.replace(/[A-Z]/g, function(m) {
+      return '-' + m.toLowerCase()
+    })
   }
 
   function cssobj_plugin_post_gencss (option) {
 
-    var indentStr = 'indent' in option ? option.indent : '  '
-    var newLine = 'newline' in option ? option.newLine : '\n'
+    option = defaults(option, {
+      indent: '  ',
+      initIndent: '',
+      newLine: '\n'
+    })
 
     return function (result) {
       var str = []
@@ -30,7 +43,7 @@ var cssobj_plugin_post_gencss = (function () {
         if(node.parentRule && !node.ruleNode) indent += indentStr
 
         // media node will reset indent
-        if(node.at=='media') indent = ''
+        if(node.at=='media') indent = initIndent
 
         var postArr = []
         var children = node.children
@@ -40,7 +53,7 @@ var cssobj_plugin_post_gencss = (function () {
         var indent2 = selText&&isGroup ? indent + indentStr :indent
 
         // node have not any selector will have no indent in cssText, else add indent in prop
-        var indent3 = !selText && !groupText ? '' : indent2 + indentStr
+        var indent3 = !selText && !groupText ? initIndent : indent2 + indentStr
 
         // get cssText from prop
         var cssText = Object.keys(prop).map(function(k) {
@@ -74,7 +87,7 @@ var cssobj_plugin_post_gencss = (function () {
         })
 
       }
-      walk(result.root, '')
+      walk(result.root, initIndent)
       result.css = str.join('')
       return result
     }
