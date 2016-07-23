@@ -43,7 +43,7 @@ function cssobj_plugin_post_gencss (option) {
       var groupText = node.groupText
 
       // child node (but not "" key) will add indent
-      if(node.parentRule && !node.ruleNode) indent += indentStr
+      if(node.parentRule && !node.ruleNode && !node.selParent) indent += indentStr
 
       // media node will reset indent
       if(node.at=='media') indent = initIndent
