@@ -1,6 +1,6 @@
 // plugin for cssobj
 
-import {dashify, defaults, repeat} from '../node_modules/cssobj-helper/lib/cssobj-helper.js'
+import {dashify, defaults} from '../../cssobj-helper/lib/cssobj-helper.js'
 
 export default function cssobj_plugin_post_gencss (option) {
 
@@ -10,6 +10,7 @@ export default function cssobj_plugin_post_gencss (option) {
     newLine: '\n'
   })
 
+  var initIndent = option.initIndent
   var newLine = option.newLine
   var indentStr = option.indent
 
@@ -21,63 +22,68 @@ export default function cssobj_plugin_post_gencss (option) {
       // cssobj generate vanilla Array, it's safe to use constructor, fast
       if (node.constructor === Array) return node.map(function (v) {walk(v,indent)})
 
+      // nested media rule will pending proceed
+      if(node.at=='media' && node.selParent && !node.pending) {
+        node.pending=true
+        return node.selParent.postArr.push(node)
+      }
+      delete node.pending
+
       var prop = node.prop
       var selText = node.selText
       var groupText = node.groupText
 
       // child node (but not "" key) will add indent
-      if(node.parentRule && !node.ruleNode && !node.selParent) indent += 1
+      if(node.parentRule && !node.ruleNode && !node.selParent) indent += indentStr
 
       // media node will reset indent
-      if(node.at=='media') indent = 0
+      if(node.at=='media') indent = initIndent
 
+      node.postArr = []
       var children = node.children
       var isGroup = node.type=='group'
 
       // groupNode if have selText, add indent
-      // indent for sel
-      var indent2 = selText&&isGroup ? indent + 1 :indent
+      var indent2 = selText&&isGroup ? indent + indentStr :indent
 
-      // node have not any selector will have no indent in cssText
-      // indent for prop
-      var indent3 = !selText && !groupText ? 0 : indent2 + 1
+      // node have not any selector will have no indent in cssText, else add indent in prop
+      var indent3 = !selText && !groupText ? initIndent : indent2 + indentStr
 
       // get cssText from prop
       var cssText = Object.keys(prop).map(function(k) {
         for(var v, str='', i=prop[k].length; i--; ) {
           v = prop[k][i]
           str += /^\s*@/.test(k)
-            ? repeat(indentStr, indent3) + dashify(k)+' '+v+';' + newLine
-            : repeat(indentStr, indent3) + dashify(k)+': '+v+';' + newLine
+            ? indent3 + dashify(k)+' '+v+';' + newLine
+            : indent3 + dashify(k)+': '+v+';' + newLine
         }
         return str
       }).join('')
 
       if(isGroup) {
-        str.push([indent, groupText+' {' + newLine])
+        str.push(indent + groupText+' {' + newLine)
       }
 
-      if (cssText) str.push(selText ? [indent2, selText + ' {' + newLine + cssText] : cssText )
+      if (cssText) str.push(selText ? indent2 + selText + ' {' + newLine + cssText + indent2 + '}' + newLine : cssText )
 
       for(var c in children) {
-        walk(children[c],indent)
+        // empty key will pending proceed
+        if(c==='') node.postArr.push(children[c])
+        else walk(children[c], indent)
       }
+
+      if(isGroup) {
+        str.push(indent+'}' + newLine)
+      }
+
+      // media rules need a stand alone block
+      node.postArr.map(function(v) {
+        walk(v,indent)
+      })
 
     }
-    walk(result.root, 0)
-
-    result.css = str.concat([[0, '']]).map(function(v, i) {
-      if(typeof v=='string') return v
-      var num = -1
-      if(i) {
-        var level = str[i - 1][0]
-        num = level - v[0]
-      }
-      for (var closeStr = ''; num >= 0; num--) {
-        closeStr += repeat(indentStr, level--) + '}' + newLine
-      }
-      return closeStr + repeat(indentStr, v[0]) + v[1]
-    }).join('')
+    walk(result.root, initIndent)
+    result.css = str.join('')
     return result
   }
 
