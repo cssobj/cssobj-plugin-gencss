@@ -70,9 +70,7 @@ var cssobj_plugin_post_gencss = (function () {
         var cssText = Object.keys(prop).map(function(k) {
           for(var v, str='', i=prop[k].length; i--; ) {
             v = prop[k][i]
-            str += /^\s*@/.test(k)
-              ? indent3 + dashify(k)+' '+v+';' + newLine
-              : indent3 + dashify(k)+': '+v+';' + newLine
+            str += indent3 + (node.inline ? node.selText + ' ' + k+';' : dashify(k)+': '+v+';') + newLine
           }
           return str
         }).join('')
@@ -81,7 +79,7 @@ var cssobj_plugin_post_gencss = (function () {
           str.push(indent + groupText+' {' + newLine)
         }
 
-        if (cssText) str.push(selText ? indent2 + selText + ' {' + newLine + cssText + indent2 + '}' + newLine : cssText )
+        if (cssText) str.push(selText ? indent2 + (node.inline ? cssText : selText + ' {' + newLine + cssText + indent2 + '}' + newLine) : cssText )
 
         for(var c in children) {
           // empty key will pending proceed
