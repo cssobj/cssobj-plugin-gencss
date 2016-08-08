@@ -95,8 +95,9 @@ var cssobj_plugin_post_gencss = (function () {
         node.postArr.map(function(v) {
           walk(v,indent)
         })
-
+        delete node.postArr
       }
+
       walk(result.root, initIndent)
       result.css = str.join('')
       return result
