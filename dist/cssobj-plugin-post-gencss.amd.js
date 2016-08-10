@@ -38,6 +38,8 @@ define('cssobj_plugin_post_gencss', function () { 'use strict';
         // cssobj generate vanilla Array, it's safe to use constructor, fast
         if (node.constructor === Array) return node.map(function (v) {walk(v,indent)})
 
+        if(node.key && node.key.charAt(0)=='$') return ''
+
         // nested media rule will pending proceed
         if(node.at=='media' && node.selParent && !node.pending) {
           node.pending=true
@@ -67,6 +69,7 @@ define('cssobj_plugin_post_gencss', function () { 'use strict';
 
         // get cssText from prop
         var cssText = Object.keys(prop).map(function(k) {
+          if(k.charAt(0)=='$') return ''
           for(var v, str='', i=prop[k].length; i--; ) {
             v = prop[k][i]
             str += indent3 + (node.inline ? node.selText + ' ' + k+';' : dashify(k)+': '+v+';') + newLine

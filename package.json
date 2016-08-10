@@ -1,13 +1,13 @@
 {
   "name": "cssobj-plugin-post-gencss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/cssobj-plugin-post-gencss.cjs.js",
   "jsnext:main": "dist/cssobj-plugin-post-gencss.es.js",
   "scripts": {
     "test": "mocha",
     "report": "cd dist && gzip < cssobj-plugin-post-gencss.min.js > cssobj-plugin-post-gencss.min.gz && ls -lh && rm -f *.gz",
-    "make": "rollup -c && uglifyjs dist/cssobj-plugin-post-gencss.iife.js -cm -o dist/cssobj-plugin-post-gencss.min.js"
+    "make": "rollup -c && uglifyjs dist/cssobj-plugin-post-gencss.iife.js -cm -o dist/cssobj-plugin-post-gencss.min.js && gulp bump"
   },
   "repository": {
     "type": "git",
