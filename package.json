@@ -1,6 +1,6 @@
 {
   "name": "cssobj-plugin-post-gencss",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/cssobj-plugin-post-gencss.cjs.js",
   "jsnext:main": "dist/cssobj-plugin-post-gencss.es.js",

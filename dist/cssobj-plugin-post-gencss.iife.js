@@ -82,7 +82,7 @@ var cssobj_plugin_post_gencss = (function () {
           str.push(indent + groupText+' {' + newLine)
         }
 
-        if (cssText) str.push(selText ? indent2 + (node.inline ? cssText : selText.join() + ' {' + newLine + cssText + indent2 + '}' + newLine) : cssText )
+        if (cssText) str.push(selText ? indent2 + (node.inline ? cssText : selText + ' {' + newLine + cssText + indent2 + '}' + newLine) : cssText )
 
         for(var c in children) {
           // empty key will pending proceed
