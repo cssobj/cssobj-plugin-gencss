@@ -1,4 +1,4 @@
-# cssobj-plugin-post-gencss
+# cssobj-plugin-gencss
 
 Generate css text from [cssobj-core](https://github.com/cssobj/cssobj-core).
 
@@ -6,8 +6,8 @@ Generate css text from [cssobj-core](https://github.com/cssobj/cssobj-core).
 
 ``` javascript
 var cssobj_core = require('cssobj-core')
-var pluginGenCSS = require('cssobj-plugin-post-gencss')
-var cssobj = cssobj_core({plugins: {post: pluginGenCSS(option) }})
+var pluginGenCSS = require('cssobj-plugin-gencss')
+var cssobj = cssobj_core({plugins: pluginGenCSS(option) })
 var result = cssobj(obj)
 
 // result.css will have the css text generated
@@ -16,7 +16,7 @@ var result = cssobj(obj)
 ## Install
 
 ``` javascript
-npm install cssobj/cssobj-plugin-post-gencss
+npm install cssobj/cssobj-plugin-gencss
 ```
 
 ## API
@@ -37,7 +37,7 @@ Get plugin function to apply, pass option.
 
 ### *RETURN*
 
-A function can be as cssobj post plugin.
+A function can be as cssobj plugin.
 
 
 ## Example
@@ -51,7 +51,7 @@ pluginGenCSS({newLine:''})  //all lines will join together
 
 ## Helpers
 
-This plugin can use with [plugin-stylize](https://github.com/cssobj/cssobj-plugin-post-stylize) to apply generated css text into `<style>` tag.
+This plugin can use with [plugin-stylize](https://github.com/cssobj/cssobj-plugin-stylize) to apply generated css text into `<style>` tag.
 
 
 

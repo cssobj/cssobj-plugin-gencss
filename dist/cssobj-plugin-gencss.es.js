@@ -1,5 +1,3 @@
-'use strict';
-
 // helper functions for cssobj
 
 // set default option (not deeply)
@@ -18,7 +16,7 @@ function dashify(str) {
   })
 }
 
-function cssobj_plugin_post_gencss (option) {
+function cssobj_plugin_gencss (option) {
 
   option = defaults(option, {
     indent: '  ',
@@ -30,7 +28,8 @@ function cssobj_plugin_post_gencss (option) {
   var newLine = option.newLine
   var indentStr = option.indent
 
-  return function (result) {
+  return {
+    post: function (result) {
     var str = []
     var walk = function(node, indent) {
       if (!node) return ''
@@ -103,8 +102,9 @@ function cssobj_plugin_post_gencss (option) {
     walk(result.root, initIndent)
     result.css = str.join('')
     return result
+    }
   }
 
 }
 
-module.exports = cssobj_plugin_post_gencss;
+export default cssobj_plugin_gencss;

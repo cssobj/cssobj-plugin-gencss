@@ -1,22 +1,8 @@
-// helper functions for cssobj
+// plugin for cssobj
 
-// set default option (not deeply)
-function defaults(options, defaultOption) {
-  options = options || {}
-  for (var i in defaultOption) {
-    if (!(i in options)) options[i] = defaultOption[i]
-  }
-  return options
-}
+import {dashify, defaults} from '../../cssobj-helper/lib/cssobj-helper.js'
 
-// convert js prop into css prop (dashified)
-function dashify(str) {
-  return str.replace(/[A-Z]/g, function(m) {
-    return '-' + m.toLowerCase()
-  })
-}
-
-function cssobj_plugin_post_gencss (option) {
+export default function cssobj_plugin_gencss (option) {
 
   option = defaults(option, {
     indent: '  ',
@@ -28,7 +14,8 @@ function cssobj_plugin_post_gencss (option) {
   var newLine = option.newLine
   var indentStr = option.indent
 
-  return function (result) {
+  return {
+    post: function (result) {
     var str = []
     var walk = function(node, indent) {
       if (!node) return ''
@@ -101,8 +88,7 @@ function cssobj_plugin_post_gencss (option) {
     walk(result.root, initIndent)
     result.css = str.join('')
     return result
+    }
   }
 
 }
-
-export default cssobj_plugin_post_gencss;

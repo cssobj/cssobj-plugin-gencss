@@ -1,5 +1,4 @@
-var cssobj_plugin_post_gencss = (function () {
-  'use strict';
+define('cssobj_plugin_gencss', function () { 'use strict';
 
   // helper functions for cssobj
 
@@ -19,7 +18,7 @@ var cssobj_plugin_post_gencss = (function () {
     })
   }
 
-  function cssobj_plugin_post_gencss (option) {
+  function cssobj_plugin_gencss (option) {
 
     option = defaults(option, {
       indent: '  ',
@@ -31,7 +30,8 @@ var cssobj_plugin_post_gencss = (function () {
     var newLine = option.newLine
     var indentStr = option.indent
 
-    return function (result) {
+    return {
+      post: function (result) {
       var str = []
       var walk = function(node, indent) {
         if (!node) return ''
@@ -104,10 +104,11 @@ var cssobj_plugin_post_gencss = (function () {
       walk(result.root, initIndent)
       result.css = str.join('')
       return result
+      }
     }
 
   }
 
-  return cssobj_plugin_post_gencss;
+  return cssobj_plugin_gencss;
 
-}());
+});

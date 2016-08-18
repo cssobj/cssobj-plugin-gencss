@@ -1,22 +1,22 @@
 {
-  "name": "cssobj-plugin-post-gencss",
-  "version": "1.0.4",
+  "name": "cssobj-plugin-gencss",
+  "version": "2.0.1",
   "description": "",
-  "main": "dist/cssobj-plugin-post-gencss.cjs.js",
-  "jsnext:main": "dist/cssobj-plugin-post-gencss.es.js",
+  "main": "dist/cssobj-plugin-gencss.cjs.js",
+  "jsnext:main": "dist/cssobj-plugin-gencss.es.js",
   "scripts": {
     "test": "mocha",
-    "report": "cd dist && gzip < cssobj-plugin-post-gencss.min.js > cssobj-plugin-post-gencss.min.gz && ls -lh && rm -f *.gz",
-    "make": "rollup -c && uglifyjs dist/cssobj-plugin-post-gencss.iife.js -cm -o dist/cssobj-plugin-post-gencss.min.js && gulp bump"
+    "report": "cd dist && gzip < cssobj-plugin-gencss.min.js > cssobj-plugin-gencss.min.gz && ls -lh && rm -f *.gz",
+    "make": "rollup -c && uglifyjs dist/cssobj-plugin-gencss.iife.js -cm -o dist/cssobj-plugin-gencss.min.js && gulp bump"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cssobj/cssobj-plugin-post-gencss.git"
+    "url": "git+https://github.com/cssobj/cssobj-plugin-gencss.git"
   },
   "bugs": {
-    "url": "https://github.com/cssobj/cssobj-plugin-post-gencss/issues"
+    "url": "https://github.com/cssobj/cssobj-plugin-gencss/issues"
   },
-  "homepage": "https://github.com/cssobj/cssobj-plugin-post-gencss#readme",
+  "homepage": "https://github.com/cssobj/cssobj-plugin-gencss#readme",
   "author": "James Yang <jamesyang999@gmail.com>",
   "license": "MIT",
   "dependencies": {
