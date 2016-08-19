@@ -1,6 +1,6 @@
 {
   "name": "cssobj-plugin-gencss",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "dist/cssobj-plugin-gencss.cjs.js",
   "jsnext:main": "dist/cssobj-plugin-gencss.es.js",

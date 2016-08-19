@@ -53,6 +53,8 @@ var cssobj_plugin_gencss = (function () {
         var selText = node.selTextPart
         var groupText = node.groupText
 
+        if(!prop) return
+
         // child node (but not "" key) will add indent
         if(node.parentRule && !node.ruleNode && !node.selParent) indent += indentStr
 

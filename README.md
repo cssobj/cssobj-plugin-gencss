@@ -7,7 +7,7 @@ Generate css text from [cssobj-core](https://github.com/cssobj/cssobj-core).
 ``` javascript
 var cssobj_core = require('cssobj-core')
 var pluginGenCSS = require('cssobj-plugin-gencss')
-var cssobj = cssobj_core({plugins: pluginGenCSS(option) })
+var cssobj = cssobj_core({plugins: [pluginGenCSS(option)] })
 var result = cssobj(obj)
 
 // result.css will have the css text generated
