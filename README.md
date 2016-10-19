@@ -1,5 +1,7 @@
 # cssobj-plugin-gencss
 
+[![Join the chat at https://gitter.im/css-in-js/cssobj](https://badges.gitter.im/css-in-js/cssobj.svg)](https://gitter.im/css-in-js/cssobj)
+
 Generate css text from [cssobj-core](https://github.com/cssobj/cssobj-core).
 
 ## Usage
