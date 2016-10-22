@@ -2,6 +2,18 @@
 
 import {dashify, defaults} from '../../cssobj-helper/lib/cssobj-helper.js'
 
+var msVendor = /^ms/
+
+/**
+ * dashify with vendor prefix, make 'msProp' into 'MsProp' first
+ * @param {string} prop the css property
+ * @returns {string} dashified property
+ */
+function dashifyWithVendor(prop) {
+  prop = msVendor.test(prop) ? prop.replace(msVendor, 'Ms') : prop
+  return dashify(prop)
+}
+
 export default function cssobj_plugin_gencss (option) {
 
   option = defaults(option, {
@@ -59,7 +71,7 @@ export default function cssobj_plugin_gencss (option) {
         if(k.charAt(0)=='$') return ''
         for(var v, str='', i=prop[k].length; i--; ) {
           v = prop[k][i]
-          str += indent3 + (node.inline ? node.selText + ' ' + k+';' : dashify(k)+': '+v+';') + newLine
+          str += indent3 + (node.inline ? node.selText + ' ' + k+';' : dashifyWithVendor(k)+': '+v+';') + newLine
         }
         return str
       }).join('')
