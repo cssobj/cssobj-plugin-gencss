@@ -1,8 +1,9 @@
 {
   "name": "cssobj-plugin-gencss",
-  "version": "2.0.3",
-  "description": "",
+  "version": "2.0.5",
+  "description": "Generate css text from cssobj-core",
   "main": "dist/cssobj-plugin-gencss.cjs.js",
+  "gencss": "dist/cssobj-plugin-gencss.iife.js",
   "jsnext:main": "dist/cssobj-plugin-gencss.es.js",
   "scripts": {
     "test": "mocha",
@@ -19,7 +20,5 @@
   "homepage": "https://github.com/cssobj/cssobj-plugin-gencss#readme",
   "author": "James Yang <jamesyang999@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "cssobj-helper": "github:cssobj/cssobj-helper"
-  }
+  "dependencies": {}
 }

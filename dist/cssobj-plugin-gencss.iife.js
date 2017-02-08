@@ -32,27 +32,14 @@ function dashify(str) {
 // repeat str for num times
 
 
-// don't use String.prototype.trim in cssobj, using below instead
-
-
 // random string, should used across all cssobj plugins
-var random = (function () {
-  var count = 0;
-  return function () {
-    count++;
-    return '_' + Math.floor(Math.random() * Math.pow(2, 32)).toString(36) + count + '_'
-  }
-})();
+
 
 // extend obj from source, if it's no key in obj, create one
 
 
 // ensure obj[k] as array, then push v into it
-function arrayKV (obj, k, v, reverse, unique) {
-  obj[k] = k in obj ? [].concat(obj[k]) : [];
-  if(unique && obj[k].indexOf(v)>-1) return
-  reverse ? obj[k].unshift(v) : obj[k].push(v);
-}
+
 
 // replace find in str, with rep function result
 
@@ -60,7 +47,13 @@ function arrayKV (obj, k, v, reverse, unique) {
 // get parents array from node (when it's passed the test)
 
 
-// split selector etc. aware of css attributes
+// split selector with comma, aware of css attributes
+
+
+// split selector with splitter, aware of css attributes
+
+
+// split char aware of syntax
 
 
 // checking for valid css value
