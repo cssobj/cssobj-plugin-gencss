@@ -1,10 +1,10 @@
 {
   "name": "cssobj-plugin-gencss",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Generate css text from cssobj-core",
   "main": "dist/cssobj-plugin-gencss.cjs.js",
-  "gencss": "dist/cssobj-plugin-gencss.iife.js",
-  "jsnext:main": "dist/cssobj-plugin-gencss.es.js",
+  "browser": "dist/cssobj-plugin-gencss.umd.js",
+  "module": "dist/cssobj-plugin-gencss.es.js",
   "scripts": {
     "test": "mocha",
     "report": "cd dist && gzip < cssobj-plugin-gencss.min.js > cssobj-plugin-gencss.min.gz && ls -lh && rm -f *.gz",
