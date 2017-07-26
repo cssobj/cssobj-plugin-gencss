@@ -1,4 +1,8 @@
-define('cssobj_plugin_gencss', function () { 'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define('cssobj_plugin_gencss', factory) :
+	(global.cssobj_plugin_gencss = factory());
+}(this, (function () { 'use strict';
 
 // helper functions for cssobj
 
@@ -166,4 +170,4 @@ function cssobj_plugin_gencss (option) {
 
 return cssobj_plugin_gencss;
 
-});
+})));

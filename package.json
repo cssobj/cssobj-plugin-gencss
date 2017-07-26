@@ -1,6 +1,6 @@
 {
   "name": "cssobj-plugin-gencss",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Generate css text from cssobj-core",
   "main": "dist/cssobj-plugin-gencss.cjs.js",
   "browser": "dist/cssobj-plugin-gencss.umd.js",
